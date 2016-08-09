@@ -1,0 +1,211 @@
+<!DOCTYPE HTML>
+<body>
+  <div id="formcontainer">
+
+    <label id="main" for="myForm">GBAS File Uploader</label>
+
+    <br><br>
+
+
+    <form id="myForm"> 
+      <label for="myForm">Person Details:</label>
+      <div>
+        <input type="text" name="fullName" placeholder="Your Name : " value="">
+      </div>
+      <div>
+        <input type="text" name="initial" placeholder="Name Initials : " value="">
+      </div>
+      <div>
+        <input type="text" name="email" placeholder="E-Mail Address : " value="">
+      </div>
+      <div>
+        <input type="text" name="place" placeholder="Your Place : ">
+      </div>
+      <div>
+
+      <label for="fileText">Any Comments : </label>
+
+          <TEXTAREA name="comments" 
+          placeholder="We'd ♡ to hear from you" value=""
+          style ="width:400px; height:200px;"
+          ></TEXTAREA>
+
+
+      </div> 
+      <br>
+
+
+      <label for="refferal">How do you came to know about us : </label>
+      <br>
+      <select name="referral">
+        <option value="friend">Friend</option>
+        <option value="email-im">Email / IM</option>
+        <option value="internet">Internet / Website</option>
+        <option value="member">I'm Project Member, dude</option>
+        <option value="other">Other</option>
+      </select>
+      <br>
+
+      <label for="myFile">Upload Attachment(s) [select all at once] : </label>
+      <br>
+
+
+      <input type="file" name="filename" id="myFile" multiple>
+
+      <input type="button" value="Submit" onclick="iteratorFileUpload();">
+
+
+    </form>
+  </div>
+
+  <div id="output"></div>
+<div id="progressbar">
+    <div class="progress-label"></div>
+</div>
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+<link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/themes/smoothness/jquery-ui.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>
+
+<script>
+
+var numUploads = {};
+numUploads.done = 0;
+numUploads.total = 0;
+/*
+function saveLog() {
+   //Save Values
+var zone,building;
+zone = document.myForm.zone;
+building = document.myForm.building;
+
+var data = [];
+data[0] = zone;
+data[1] = building;
+    google.script.run.sheetLog(data);  //Save Data
+}
+*/
+// Upload the files into a folder in drive
+// This is set to send them all to one folder (specified in the .gs file)
+function iteratorFileUpload() {
+    var allFiles = document.getElementById('myFile').files;
+
+    if (allFiles.length == 0) {
+        alert('No file selected!');
+    } else {
+        //Show Progress Bar
+
+        numUploads.total = allFiles.length;
+        $('#progressbar').progressbar({
+        value : false
+        });//.append("<div class='caption'>37%</div>");
+        $(".progress-label").html('Preparing files for upload');
+        // Send each file at a time
+        for (var i = 0; i < allFiles.length; i++) {
+            console.log(i);
+            sendFileToDrive(allFiles[i]);
+        }
+    }
+}
+
+var data = [];
+function sendFileToDrive(file) {
+    var reader = new FileReader();
+    reader.onload = function (e) {
+        var content = reader.result;
+        console.log('Sending ' + file.name);
+        var currFolder = 'Something';
+        data[0] = myForm.fullName.value;
+        data[1] = myForm.initial.value;
+        data[2] = myForm.place.value;
+        data[3] = myForm.comments.value;
+        data[4] = myForm.referral.value;
+        data[5] = myForm.email.value;
+        google.script.run.withSuccessHandler(updateProgressbar).uploadFileToDrive(data,content, file.name, currFolder);
+    }
+    reader.readAsDataURL(file);
+}
+
+function updateProgressbar( idUpdate ){
+   console.log('Received: ' + idUpdate);
+   numUploads.done++;
+   var porc = Math.ceil((numUploads.done / numUploads.total)*100);
+   $("#progressbar").progressbar({value: porc });
+   $(".progress-label").text(numUploads.done +'/'+ numUploads.total);
+   if( numUploads.done == numUploads.total ){
+      //uploadsFinished();
+      numUploads.done = 0;
+   };
+}
+</script>
+
+  <script>
+    function fileUploaded(status) {
+      document.getElementById('myForm').style.display = 'none';
+      document.getElementById('output').innerHTML = status;
+    }
+
+  </script>
+
+  <style>
+    body {
+      max-width: 400px;
+      padding: 20px;
+      margin: auto;
+      background-color: #00FFFF;
+    }
+    input {
+      display: inline-block;
+      width: 100%;
+      padding: 5px 0px 5px 5px;
+      margin-bottom: 10px;
+      -webkit-box-sizing: border-box;
+      ‌​ -moz-box-sizing: border-box;
+      box-sizing: border-box;
+    }
+    select {
+      margin: 5px 0px 15px 0px;
+    }
+    input[type="submit"] {
+      width: auto !important;
+      display: block !important;
+    }
+    input[type="file"] {
+      padding: 5px 0px 15px 0px !important;
+    }
+#progressbar{
+    width: 100%;
+    text-align: center;
+    overflow: hidden;
+    position: relative;
+    vertical-align: middle;
+
+}
+.progress-label {
+      float: left;
+margin-top: 5px;
+      font-weight: bold;
+      text-shadow: 1px 1px 0 #fff;
+          width: 100%;
+    height: 100%;
+    position: absolute;
+    vertical-align: middle;
+    }
+label#main{
+
+	    //display: flex;
+	    align: center;
+	    /* text-align: center; */
+	    background: rgba(244, 164, 96, 0.92);
+	    font-size: xx-large;
+	    margin-left: auto;
+	    margin-right: auto;
+        justify-content: center;
+      }
+a:hover{
+        background-color: yellow;
+      } 
+  
+  </style>
+</body>
+</html>
