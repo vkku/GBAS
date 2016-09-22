@@ -1,7 +1,7 @@
 # Map 1-based optional input ports to variables
 dataset1 <- maml.mapInputPort(1) # class: data.frame
 #dataset2 <- maml.mapInputPort(2) # class: data.frame
-dataset1$name <- 100
+dataset1$name <- 100  #data item named for classification model
 # Contents of optional Zip port are in ./src/
 # source("src/yourfile.R");
 # load("src/yourData.rdata");
