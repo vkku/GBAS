@@ -1,0 +1,9 @@
+dataset1 <- maml.mapInputPort(1) # class: data.frame
+dataset2 <- maml.mapInputPort(2) # class: data.frame
+name <- "yash"
+dataset1 <- cbind(dataset1,name)
+dataset2 <- cbind(dataset2,name)
+
+resultSet <- rbind(dataset1,dataset2)
+
+maml.mapOutputPort("resultSet");
