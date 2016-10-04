@@ -7,3 +7,4 @@ dataset2 <- cbind(dataset2,name)
 resultSet <- rbind(dataset1,dataset2)
 
 maml.mapOutputPort("resultSet");
+#got resultSet in output port
