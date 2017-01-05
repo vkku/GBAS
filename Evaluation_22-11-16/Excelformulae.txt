@@ -1,0 +1,10 @@
+Calculating Unique Values
+=COUNTIF(N3:N811,"vijay")
+
+
+Calculating Percentage
+=P812/SUM(P812:P814)*100
+
+
+Another Fields
+=0.04/SUM(P812:P813)*100
