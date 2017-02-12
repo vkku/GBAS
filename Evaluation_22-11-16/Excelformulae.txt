@@ -1,8 +1,8 @@
-Calculating Unique Values
+Calculating Unique Values     //Cells in which vijay occurs
 =COUNTIF(N3:N811,"vijay")
 
 
-Calculating Percentage
+ Calculating Percentage
 =P812/SUM(P812:P814)*100
 
 
