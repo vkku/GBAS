@@ -1,5 +1,8 @@
 data <- read.csv("C:/Users/Regular/Downloads/vatsal test.csv")
 
+#Mean
+#Median
+#Average Resultant Acceleration
 for (i in 1:nrow(data)) {
   meanData <- mean(data$Sensor1[i]+data$Sensor2[i]+data$Sensor3[i])
   medianData <- median(data$Sensor1[i]+data$Sensor2[i]+data$Sensor3[i])
