@@ -3,7 +3,7 @@
 // Tools -> Nuget Package Manager -> Package Manager Console
 // Install-Package Microsoft.AspNet.WebApi.Client
 
-//look for input file
+//look for Input file
 
 using System;
 using System.Collections.Generic;
