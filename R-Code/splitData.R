@@ -17,4 +17,3 @@ data.set = rbind(dataset1, dataset2);
 
 # Select data.frame to be sent to the output Dataset port
 maml.mapOutputPort("data.set");
-#Not in use currently
